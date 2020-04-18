@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Grab:charset-1.2.1.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/charset/charset/jars/charset-1.2.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:clojure-1.6.0.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/org.clojure/clojure/jars/clojure-1.6.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:nifi-record-serialization-service-api-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/org.apache.nifi/nifi-record-serialization-service-api/jars/nifi-record-serialization-service-api-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:nifi-api-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/org.apache.nifi/nifi-api/jars/nifi-api-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/nifi-api-1.8.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:nifi-utils-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/org.apache.nifi/nifi-utils/jars/nifi-utils-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:commons-io-2.6.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/commons-io/commons-io/jars/commons-io-2.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Grab:nifi-record-1.8.0.jar">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/.groovy/grapes/org.apache.nifi/nifi-record/jars/nifi-record-1.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ideaLibSources/nifi-record-1.8.0-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../Tools/groovy-2.5.8/lib/extras-jaxb" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../Tools/groovy-2.5.8/lib/extras-jaxb" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="extras-jaxb" level="project" />
+    <orderEntry type="library" name="groovy-3.0.3" level="application" />
+  </component>
+</module>
