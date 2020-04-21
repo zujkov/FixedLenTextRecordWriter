@@ -58,29 +58,39 @@ class FixedLenTextRecordSetWriter implements RecordSetWriter {
         List<Object> values = new ArrayList<>()
         fieldNames.each { fieldName -> values.add(r.getValue(fieldName)) }
         Object[] vs = values.toArray()
+        String[] formats = outputFormat.split("%")
+        for (int i = 0; i < formats.length; i++) {
+            if (formats[i].contains('c')) {
+                Object charValue = vs[i - 1]
+                if (charValue instanceof Integer) {
+                    int value = (int) charValue
+                    vs[i - 1] = value + 48
+                }
+            }
+        }
         byte[] row = String.format(Locale.US, outputFormat, vs).bytes
-        String rowString = new String(row)
+        String rowString = new String(row);
 
-        int len = rowString.length()
+        int len = rowString.length();
         for (int i = 0 ; i < len ; i++) {
-            out.write((byte)rowString.charAt(i))
+            out.write((byte)rowString.charAt(i));
         }
 
         out.write("\r\n".getBytes())
     }
 
-    void beginRecordSet() throws IOException {}
+    public void beginRecordSet() throws IOException {}
 
     @Override
-    WriteResult finishRecordSet() throws IOException {
+    public WriteResult finishRecordSet() throws IOException {
         WriteResult.of(recordCount, [:])
     }
 
     @Override
-    void close() throws IOException {}
+    public void close() throws IOException {}
 
     @Override
-    void flush() throws IOException { out.flush() }
+    public void flush() throws IOException { out.flush(); }
 }
 
 class GroovyRecordSetWriterFactory extends AbstractControllerService implements RecordSetWriterFactory {
@@ -88,7 +98,7 @@ class GroovyRecordSetWriterFactory extends AbstractControllerService implements 
 
     @Override
     RecordSchema getSchema(Map<String, String> variables, RecordSchema readSchema) throws SchemaNotFoundException, IOException {
-        this.variables = variables
+        this.variables = variables;
         null
     }
 
@@ -97,3 +107,5 @@ class GroovyRecordSetWriterFactory extends AbstractControllerService implements 
         new FixedLenTextRecordSetWriter(out, variables)
     }
 }
+
+writer = new GroovyRecordSetWriterFactory()

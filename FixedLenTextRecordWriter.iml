@@ -86,5 +86,15 @@
     </orderEntry>
     <orderEntry type="library" name="extras-jaxb" level="project" />
     <orderEntry type="library" name="groovy-3.0.3" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../Tools/groovy-3.0.3/lib/extras-jaxb" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/../../../Tools/groovy-3.0.3/lib/extras-jaxb" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
