@@ -22,17 +22,32 @@ class FixedLenTextRecordSetWriter implements RecordSetWriter {
     private final OutputStream out
     private final String outputFormat
     private final Set<String> outputColumns
+    private final String headerFirstRow;
+    private final String headerSecondRow;
+    private final String headerRespCount;
+    private final String headerVariableList;
+    private final String headerAllWeights;
+    private final Locale locale;
 
     FixedLenTextRecordSetWriter(final OutputStream out, Map<String, String> variables) {
         this.out = out
         this.outputFormat = variables.get("output.format")
+        String[] locales = variables.get("output.locale").split("_")
+        locale = new Locale(locales[0].toString(), locales[1].toString())
+
         this.outputColumns = variables.get("output.columns").split(',')
+
+        this.headerFirstRow = variables.get("header.first.row")
+        this.headerSecondRow = variables.get("header.second.row")
+        this.headerRespCount = variables.get("header.resp.count")
+        this.headerVariableList = variables.get("header.variable.list")
+        this.headerAllWeights = variables.get("header.all.weight")
     }
 
     @Override
     WriteResult write(Record record) throws IOException {
         Set<String> outputFieldNames = record.schema.fieldNames.intersect(outputColumns)
-        printRow(out, record, outputFieldNames, outputFormat)
+        printRow(out, record, outputFieldNames, outputFormat, locale)
         recordCount++
         WriteResult.of(1, [:])
     }
@@ -48,13 +63,28 @@ class FixedLenTextRecordSetWriter implements RecordSetWriter {
         while (record = recordSet.next()) {
             count++
             Set<String> outputFieldNames = record.schema.fieldNames.intersect(outputColumns)
-            printRow(out, record, outputFieldNames, outputFormat)
+            printRow(out, record, outputFieldNames, outputFormat, locale)
         }
 
         WriteResult.of(count, [:])
     }
 
-    private static void printRow(OutputStream out, Record r, Set<String> fieldNames, String outputFormat) {
+    private void printHeader(String... headerRows) {
+        for (String headerRow : headerRows) {
+            printRow(this.out, headerRow)
+        }
+    }
+
+    private static void printRow(OutputStream out, String row) {
+        int len = row.length();
+        for (int i = 0; i < len; i++) {
+            out.write((byte) row.charAt(i));
+        }
+
+        out.write("\r\n".getBytes())
+    }
+
+    private static void printRow(OutputStream out, Record r, Set<String> fieldNames, String outputFormat, Locale locale) {
         List<Object> values = new ArrayList<>()
         fieldNames.each { fieldName -> values.add(r.getValue(fieldName)) }
         Object[] vs = values.toArray()
@@ -68,18 +98,20 @@ class FixedLenTextRecordSetWriter implements RecordSetWriter {
                 }
             }
         }
-        byte[] row = String.format(Locale.US, outputFormat, vs).bytes
+        byte[] row = String.format(locale, outputFormat, vs).bytes
         String rowString = new String(row);
 
         int len = rowString.length();
-        for (int i = 0 ; i < len ; i++) {
-            out.write((byte)rowString.charAt(i));
+        for (int i = 0; i < len; i++) {
+            out.write((byte) rowString.charAt(i));
         }
 
         out.write("\r\n".getBytes())
     }
 
-    public void beginRecordSet() throws IOException {}
+    public void beginRecordSet() throws IOException {
+        printHeader(headerFirstRow, headerSecondRow, headerRespCount, headerVariableList, headerAllWeights)
+    }
 
     @Override
     public WriteResult finishRecordSet() throws IOException {
@@ -108,4 +140,4 @@ class GroovyRecordSetWriterFactory extends AbstractControllerService implements 
     }
 }
 
-writer = new GroovyRecordSetWriterFactory()
+//writer = new GroovyRecordSetWriterFactory()
